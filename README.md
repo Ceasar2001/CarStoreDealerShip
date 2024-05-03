@@ -4,11 +4,6 @@
 
 These instructions will help you set up and run the project on your local machine.
 
-### Prerequisites
-
-- Windows OS
-- Python installed
-
 ### Installation
 
 ***1. Create a virtual environment & activate it:***
