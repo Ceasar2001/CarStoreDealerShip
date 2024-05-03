@@ -1,0 +1,6 @@
+item_images
+.vscode
+db.sqlite3
+media
+migrations/
+__pycache__
