@@ -1,9 +1,5 @@
 # Online-Store
 
-## Getting Started
-
-These instructions will help you set up and run the project on your local machine.
-
 ### Installation
 
 ***1. Create a virtual environment & activate it:***

@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -21,5 +23,16 @@ urlpatterns = [
         {"category": "automobile"}, name="automobile"),
     path("cart/", views.cart, name="cart"),
     path("user/<int:id>", views.user_view, name="view"),
-    path("search/results", views.search_results, name="search_results")
+    path("search/results", views.search_results, name="search_results"),
+    
+    path('payment/', views.payment, name="payment"),
+    
+     
+    #password reset
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+
 ]

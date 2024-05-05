@@ -219,3 +219,12 @@ def search_results(request):
         return render(request, 'search_results.html', {'searched': searched, 'items_list':items_list})
     else:
         return render(request, 'search_results.html')
+    
+def payment(request):
+    cart = Cart.objects.get(user=request.user)
+    total_amount = cart.total
+    return render(request, 'payment.html', {'total_amount': total_amount})
+
+
+def forgot_password(request):
+    return render(request, 'forgot_password.html')
