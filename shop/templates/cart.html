@@ -11,31 +11,30 @@
         <div class="card mb-3">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <img src="{{ cart_item.image.url }}" alt="Item Image"
-                        class="img-fluid card-img" style="height: 180px;">
+                    <img src="{{ cart_item.image.url }}" alt="Item Image" class="img-fluid card-img" style="height: 180px;">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ cart_item.item.name }}</h5>
                         <div class="input-group mb-3">
-                            <button type="submit"
-                                name="{{ cart_item.item.name }}_save"
-                                class="btn btn-outline-success"
-                                style="text-align: end;">Save</button>
-                            <input type="number"
-                                name="{{ cart_item.item.name }}_quantity"
-                                class="form-control"
-                                value="{{ cart_item.quantity }}">
-                            <button type="submit"
-                                name="{{ cart_item.item.name }}_remove"
-                                class="btn btn-outline-danger">Remove</button>
+                            <button type="submit" name="{{ cart_item.item.name }}_save" class="btn btn-outline-success" style="text-align: end;">Save</button>
+                            <input type="number" name="{{ cart_item.item.name }}_quantity" class="form-control" value="{{ cart_item.quantity }}">
+                            <button type="submit" name="{{ cart_item.item.name }}_remove" class="btn btn-outline-danger">Remove</button>
                         </div>
-                        <a href="/user/{{ cart_item.user.id }}"
-                            class="user-link"
-                            style="font-size: small; margin-top: 10px;">
+                        <a href="/user/{{ cart_item.user.id }}" class="user-link" style="font-size: small; margin-top: 10px;">
                             <span>Offered by:</span>
                             <span>{{ cart_item.user }}</span>
                         </a>
+
+                        <input type="number" name="{{ cart_item.item.name }}_rating" class="form-control"
+                            placeholder="Rate the product (1-5)">
+                        <hr>
+                        <button type="submit" name="{{ cart_item.item.name }}_rate" class="btn btn-primary btn-sm">
+                            <span>Rate</span>
+                            <i class="fas fa-star ml-1"></i>
+                        </button>
+                        <hr>
+                        <div>Current Rating: {{ cart_item.item.rating }}</div>
                     </div>
                 </div>
             </div>
@@ -54,7 +53,7 @@
     <a href="/category/automobile" class="btn btn-outline-warning buy-button">Continue Shopping</a>
     {% if not cart_items|length == 0 %}
     <button type="button" class="btn btn-warning buy-button">
-        <a href="{% url 'payment' %}" class="text-decoration-none text-white">Buy and Pay</a>
+        <a href="{% url 'payment' %}" class="text-decoration-none text-black fw-bold">Buy and Pay</a>
     </button>
     {% endif %}
     <h5>&nbsp;</h5>

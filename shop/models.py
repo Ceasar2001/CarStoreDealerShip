@@ -11,7 +11,8 @@ class Item(models.Model):
     price = models.FloatField(null=True, blank=True)
     category = models.TextField(default="")
     image = models.ImageField(upload_to="item_images/")
-
+    rating = models.IntegerField(default=0)
+    
     def __str__(self):
         return self.name
 

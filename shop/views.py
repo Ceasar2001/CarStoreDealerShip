@@ -10,6 +10,8 @@ from django.contrib import messages
 from .forms import NewOfferForm, EditOfferForm
 from .models import Item, Cart, CartItem
 
+from django.http import HttpResponse
+
 #editing profile
 def editprofile(request):
     if request.method == 'POST':
@@ -119,8 +121,7 @@ def edit_offer(request, id):
 
     return render(request, 'edit_offer.html', {'item': item, 'form': form})
 
-
-
+@login_required
 def view(request, id):
     item = Item.objects.get(id=id)
 
@@ -140,8 +141,7 @@ def view(request, id):
     if request.method == 'POST' and 'edit' in request.POST:
         return redirect(f'/offer/{id}/edit')
 
-    return render(request, 'item_details.html', {'item': item})
-
+    return render(request, 'item_details.html', {'item': item, 'rating': item.rating})
 
 @login_required
 def cart(request):
@@ -177,12 +177,28 @@ def cart(request):
                     cart_item.quantity = request.POST.get(item_quantity)
                     cart_item.save()
 
-                if int(cart_item.quantity) == 0:
-                    cart_item.delete()
-                    cart.save()
-                    return redirect('/cart/')
+            if int(cart_item.quantity) == 0:
+                cart_item.delete()
+                cart.save()
+                return redirect('/cart/')
+        
+        # Handle rating submission outside the loop
+        for cart_item in cart_items:
+            item_name_rate = f'{cart_item.item.name}_rate'
+            item_rating = f'{cart_item.item.name}_rating'
+            if item_name_rate in request.POST:
+                # Check if rating field is empty
+                if request.POST.get(item_rating):
+                    rating = int(request.POST.get(item_rating))
+                    if 1 <= rating <= 5:
+                        cart_item.item.rating = (cart_item.item.rating + rating) / 2
+                        cart_item.item.save()
+                    else:
+                        return HttpResponse("Invalid rating. Please rate between 1 and 5.")
                 
     return render(request, 'cart.html', {'cart': cart, 'cart_items': cart_items})
+
+
 
 def user_view(request, id):  
     current_user = request.user

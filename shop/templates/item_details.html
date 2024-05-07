@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{{ item.name }} - Professional Shop{% endblock %}
+{% block title %}{{ item.name }} - Online Car Shop{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
@@ -24,6 +24,10 @@
                 <div class="divider"></div>
                 <div class="item-price">${{ item.price }}</div>
                 <div class="divider"></div>
+
+                <div>Rating: {{ rating }}</div>
+                <div class="divider"></div>
+
                 <form method="post">
                     {% csrf_token %}
                     {% if not item.user == request.user %}
@@ -34,8 +38,7 @@
                     </div>
                     {% else %}
                     <div class="buttons">
-                        <button class="btn btn-warning" name="edit">Edit an
-                            Offer</button>
+                        <button class="btn btn-warning fw-bold" name="edit">Edit This Offer</button>
                     </div>
                     {% endif %}
                 </form>
